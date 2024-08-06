@@ -750,8 +750,8 @@ pigz -qf $out/$device/$(cat ${rootfs_path}/rootfs.log | cut -d '-' -f1-3)-$devic
 tot_time=$(($SECONDS - start_cnt)
 build_time=$(($SECONDS - $start_comp_cnt))
 
-echo -e "Build Time : $(($build_time/60)) m $(($build_time%60)) s"
-echo -e "Total Time : $(($tot_time/60)) m $(($tot_time%60)) s"
+echo "Build Time : $(($build_time/60)) m $(($build_time%60)) s"
+echo "Total Time : $(($tot_time/60)) m $(($tot_time%60)) s"
 echo -e 'Done...' | $lolcat -a -d 5
 echo -e ""
 chmod -R 777 $out
