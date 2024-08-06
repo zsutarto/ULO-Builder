@@ -24,6 +24,8 @@ fwdriver_path="./core/root/lib"
 # Kernel & Firmware Repository
 repos="https://github.com/nosignals/ULO-repository"
 
+start_cnt=$SECONDS
+
 die() {
     echo -e "ERROR.. = $1"
     exit 1
@@ -240,6 +242,8 @@ unpack_openwrt() {
     local path="$rootfs_path/$firmware"
     local suffix="${firmware##*.}"
     common_root="$tmp/core/root"
+
+    start_comp_cnt=$SECONDS
 
     mkdir -p $common_root
 
@@ -743,6 +747,11 @@ cleaning 0
 
 pigz -qf $out/$device/$(cat ${rootfs_path}/rootfs.log | cut -d '-' -f1-3)-$device-k$kernel.img || gzip $out/$device/$(cat ${rootfs_path}/rootfs.log | cut -d '-' -f1-3)-$device-k$kernel.img
 
+tot_time=$(($SECONDS - $START_TIME))
+build_time=$(($SECONDS - $START_TIME))
+
+echo -e "Build Time : $(($build_time/60)) m $(($build_time%60)) s"
+echo -e "Total Time : $(($tot_time/60)) m $(($tot_time%60)) s"
 echo -e 'Done...' | $lolcat -a -d 5
 echo -e ""
 chmod -R 777 $out
